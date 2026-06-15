@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      connect-src 'self' https://script.google.com https://*.googleapis.com;
+      font-src 'self';
+      frame-src 'none';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+    ">
+  <title>おとりおきフォーム</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>おとりおきフォーム</h1>
+  </header>
+
+  <main id="app" class="form-container">
+    <div id="loading-indicator" class="loading-spinner">読み込み中...</div>
+
+    <section id="notice-section" class="notice-box" style="display:none"></section>
+
+    <section id="item-grid-section" style="display:none">
+      <div id="empty-items-message" style="display:none">現在取り置き受付中の頒布物はありません</div>
+      <div id="item-grid">
+        <!-- JS generates item cards here -->
+      </div>
+    </section>
+
+    <form id="reservation-form" style="display:none">
+      <div class="form-group">
+        <label for="visitor-name">お名前 <span class="badge-required">必須</span></label>
+        <input type="text" id="visitor-name" name="visitor_name" required maxlength="50" placeholder="例: サークル太郎">
+        <span class="error-message" id="error-visitor-name" style="display:none"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="visitor-email">メールアドレス <span class="badge-optional">任意</span></label>
+        <input type="email" id="visitor-email" name="visitor_email" placeholder="控えのメールが必要な場合は入力">
+        <span class="error-message" id="error-visitor-email" style="display:none"></span>
+      </div>
+
+      <div id="form-error" class="error-message" style="display:none; text-align:center; font-weight:bold;"></div>
+
+      <button id="submit-btn" type="submit" class="btn-primary">申し込む</button>
+      
+      <div id="submit-result"></div>
+    </form>
+  </main>
+
+  <!-- Image Modal -->
+  <div id="sample-image-modal" role="dialog" aria-modal="true" style="display:none">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button id="modal-close" aria-label="閉じる">×</button>
+      <img id="modal-image" src="" alt="サンプル画像">
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>

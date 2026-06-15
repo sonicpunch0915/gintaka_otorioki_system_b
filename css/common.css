@@ -1,0 +1,100 @@
+/* common.css - 共通スタイル（CSS変数・リセット・タイポグラフィ） */
+
+:root {
+  --color-header-bg: #b2e0e8;      /* 水色系ヘッダー */
+  --color-accent: #b0b0e8;         /* 薄紫系（チェックボックス・ボーダー） */
+  --color-bg: #ffffff;             /* 白背景 */
+  --color-badge-required: #ffe0c0; /* 必須バッジ（薄橙） */
+  --color-badge-optional: #e0e0e0; /* 任意バッジ（薄グレー） */
+  --color-new-badge: #f7a8c0;      /* NewBadge（ピンク） */
+  --color-text: #444444;           /* 本文テキスト */
+  --color-border: #d0d0e8;         /* 入力フィールドボーダー */
+}
+
+/* CSS Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { 
+  font-family: 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, sans-serif; 
+  color: var(--color-text); 
+  background: var(--color-bg); 
+  line-height: 1.6; 
+}
+a { color: var(--color-accent); text-decoration: none; }
+button { 
+  cursor: pointer; 
+  font-family: inherit; 
+  border: none;
+  background: none;
+}
+input, textarea, select { 
+  font-family: inherit; 
+  font-size: 1rem; 
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 8px;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 4px rgba(176, 176, 232, 0.5);
+}
+img { max-width: 100%; height: auto; display: block; }
+
+/* Utility classes */
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+.badge-required { background: var(--color-badge-required); color: #a06000; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: bold; margin-left: 8px; vertical-align: middle; }
+.badge-optional { background: var(--color-badge-optional); color: #666; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+.error-message { color: #d32f2f; font-size: 0.85rem; margin-top: 4px; display: block; }
+.loading-spinner { text-align: center; padding: 40px; color: #999; }
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover {
+  opacity: 0.8;
+}
+.btn-primary:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+.btn-danger {
+  background-color: #d32f2f;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+.btn-danger:hover {
+  background-color: #b71c1c;
+}
+
+/* Header */
+.site-header {
+  background-color: var(--color-header-bg);
+  padding: 16px 20px;
+  text-align: center;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.site-header h1 {
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin: 0;
+}
+
+/* Notice Section */
+.notice-box {
+  background-color: #fff9e6;
+  border-left: 4px solid #ffcc00;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 0 4px 4px 0;
+  white-space: pre-wrap;
+}

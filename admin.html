@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      connect-src 'self' https://script.google.com https://*.googleapis.com;
+      font-src 'self';
+      frame-src 'none';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+    ">
+  <title>管理画面 - おとりおきフォーム</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>管理画面</h1>
+  </header>
+
+  <main id="admin-app">
+    <!-- Login Section -->
+    <section id="login-section" style="display:none">
+      <div class="login-card">
+        <h2>ログイン</h2>
+        <input id="login-password" type="password" placeholder="パスワード">
+        <button id="login-btn" class="btn-primary">ログイン</button>
+        <p id="login-error" class="error-message"></p>
+      </div>
+    </section>
+
+    <!-- Dashboard (hidden until auth) -->
+    <section id="admin-dashboard" style="display:none">
+      <div class="dashboard-header">
+        <h2>ダッシュボード</h2>
+        <button id="logout-btn">ログアウト</button>
+      </div>
+      
+      <nav class="tab-nav">
+        <button id="tab-items" class="tab-btn active">頒布物管理</button>
+        <button id="tab-reservations" class="tab-btn">申込み一覧</button>
+        <button id="tab-notice" class="tab-btn">連絡事項</button>
+      </nav>
+
+      <!-- Items Panel -->
+      <div id="panel-items" class="tab-panel">
+        <button id="add-item-btn" class="btn-primary">＋ 新規登録</button>
+        
+        <div id="item-form-section" style="display:none">
+          <form id="item-form">
+            <div>
+              <label>タイトル <span class="badge-required">必須</span></label>
+              <input id="item-title" type="text" required>
+            </div>
+            <div>
+              <label>価格（円）</label>
+              <input id="item-price" type="number" min="0" value="0">
+            </div>
+            <div>
+              <label>在庫数</label>
+              <input id="item-stock" type="number" min="0" value="0">
+            </div>
+            <div>
+              <label>サムネイル画像（1MB以下）</label>
+              <input id="item-thumbnail" type="file" accept="image/*">
+            </div>
+            <div>
+              <label>サンプル画像（5MB以下）</label>
+              <input id="item-sample" type="file" accept="image/*">
+            </div>
+            <div>
+              <label>説明</label>
+              <textarea id="item-description"></textarea>
+            </div>
+            <div>
+              <label class="checkbox-label"><input id="item-is-new" type="checkbox"> 新刊として扱う</label>
+            </div>
+            <div>
+              <label class="checkbox-label"><input id="item-price-visible" type="checkbox"> 価格を来場者に表示する</label>
+            </div>
+            <input id="item-edit-id" type="hidden" value="">
+            <div class="form-actions">
+              <button type="submit" id="item-save-btn" class="btn-primary">保存</button>
+              <button type="button" id="item-cancel-btn" class="btn-danger" style="background:#888;">キャンセル</button>
+            </div>
+          </form>
+        </div>
+
+        <table id="items-table">
+          <thead>
+            <tr>
+              <th>サムネイル</th>
+              <th>タイトル</th>
+              <th>価格</th>
+              <th>在庫</th>
+              <th>新刊</th>
+              <th>価格表示</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="item-list"></tbody>
+        </table>
+      </div>
+
+      <!-- Reservations Panel -->
+      <div id="panel-reservations" class="tab-panel" style="display:none">
+        <p id="reservation-empty" style="display:none">まだ申込みはありません</p>
+        <table id="reservations-table">
+          <thead>
+            <tr>
+              <th>氏名</th>
+              <th>申込み内容</th>
+              <th>メール</th>
+              <th>日時</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="reservation-list"></tbody>
+        </table>
+        <div id="pagination"></div>
+      </div>
+
+      <!-- Notice Panel -->
+      <div id="panel-notice" class="tab-panel" style="display:none">
+        <h3>連絡事項の編集</h3>
+        <p style="font-size:0.9rem; color:#666;">来場者のフォーム上部に表示されるメッセージです。</p>
+        <textarea id="notice-textarea" maxlength="1000" placeholder="連絡事項を入力..."></textarea>
+        <div class="notice-footer">
+          <span id="notice-char-count">0/1000</span>
+          <button id="notice-save-btn" class="btn-primary">保存</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Confirm Dialog -->
+  <div id="confirm-dialog" style="display:none">
+    <div class="dialog-backdrop"></div>
+    <div class="dialog-content">
+      <p id="confirm-message" style="margin-bottom:24px; font-weight:bold;"></p>
+      <div class="dialog-actions">
+        <button id="confirm-ok" class="btn-danger">OK</button>
+        <button id="confirm-cancel" class="btn-primary" style="background:#888;">キャンセル</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

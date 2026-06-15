@@ -1,0 +1,230 @@
+/* form.css - Reservation_Form 専用スタイル */
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+/* Item Grid */
+#item-grid-section {
+  margin-bottom: 32px;
+}
+
+#item-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  #item-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Item Card */
+.item-card {
+  display: flex;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px;
+  align-items: center;
+  gap: 12px;
+  transition: box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.item-card.sold-out {
+  opacity: 0.6;
+  background-color: #f9f9f9;
+}
+
+.item-checkbox-wrap {
+  flex-shrink: 0;
+}
+
+.item-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.item-card.sold-out .item-checkbox {
+  cursor: not-allowed;
+}
+
+.thumbnail-wrap {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #eee;
+  cursor: pointer;
+  position: relative;
+}
+
+.thumbnail-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* NewBadge (桜マーク) */
+.item-card.is-new .thumbnail-wrap::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 32px;
+  height: 32px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="translate(16,16)"><ellipse rx="5" ry="9" fill="%23f7a8c0" transform="rotate(0) translate(0,-6)"/><ellipse rx="5" ry="9" fill="%23f7a8c0" transform="rotate(72) translate(0,-6)"/><ellipse rx="5" ry="9" fill="%23f7a8c0" transform="rotate(144) translate(0,-6)"/><ellipse rx="5" ry="9" fill="%23f7a8c0" transform="rotate(216) translate(0,-6)"/><ellipse rx="5" ry="9" fill="%23f7a8c0" transform="rotate(288) translate(0,-6)"/><circle r="5" fill="%23f7a8c0"/><text text-anchor="middle" dominant-baseline="central" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">新</text></g></svg>');
+  background-size: 32px 32px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.item-details {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.item-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.item-title:hover {
+  color: var(--color-accent);
+}
+
+.item-price {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.item-qty-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.item-qty {
+  width: 50px;
+  text-align: right;
+  padding: 4px 8px;
+}
+
+.sold-out-label {
+  color: #d32f2f;
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  background: #ffebee;
+  border-radius: 4px;
+}
+
+/* Form Fields */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+  width: 100%;
+  padding: 10px;
+}
+
+#submit-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  margin-top: 16px;
+}
+
+#submit-result {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  display: none;
+}
+
+#submit-result.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+  display: block;
+}
+
+#submit-result.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+  display: block;
+}
+
+/* Modal */
+#sample-image-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1001;
+  max-width: 90%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: #fff;
+  font-size: 30px;
+  background: none;
+  border: none;
+  padding: 10px;
+}
+
+#modal-image {
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 4px;
+  background: #fff;
+}
